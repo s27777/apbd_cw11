@@ -1,6 +1,6 @@
 ﻿namespace Tutorial5.Controllers;
 
-public class BooksController
+public class PrescriptionController
 {
     
 }
