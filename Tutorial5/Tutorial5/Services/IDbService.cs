@@ -6,6 +6,6 @@ namespace Tutorial5.Services;
 public interface IDbService
 {
     Task<List<BookWithAuthorsDto>> GetBooks();
-
-        Task<Prescription> CreatePrescription(Prescription prescription, List<Prescription_Medicament> medicaments);
+    Task<PrescriptionDTO> GetPrescription(int id);
+    Task<Prescription> CreatePrescription(Prescription prescription, List<Prescription_Medicament> medicaments);
 }

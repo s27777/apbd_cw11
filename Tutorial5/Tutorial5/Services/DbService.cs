@@ -8,12 +8,57 @@ namespace Tutorial5.Services;
 public class DbService : IDbService
 {
     private readonly DatabaseContext _context;
+
     public DbService(DatabaseContext context)
     {
         _context = context;
     }
 
-    public async Task<Prescription> CreatePrescription(Prescription prescription,
+    public async Task<PrescriptionDTO> GetPrescription(int id)
+    {
+        var prescription = await _context.Prescriptions.FindAsync(id);
+        if (prescription == null)
+        {
+            throw new KeyNotFoundException("Not found");
+        }
+
+        var patient = await _context.Patients.FindAsync(prescription.IdPatient);
+        var doctor = await _context.Doctors.FindAsync(prescription.IdDoctor);
+
+        var _medicaments = _context.PrescriptedMedicaments
+            .Where(med => med.IdPrescription == prescription.IdPrescription)
+            .ToList();
+
+        var medicaments = new List<MedicamentDTO>();
+        foreach (var med in _medicaments)
+        {
+            var medicament = await _context.Medicaments.FindAsync(med.IdMedicament);
+            if (medicament == null)
+            {
+                continue;
+            }
+
+            var medicamentdto = new MedicamentDTO
+            {
+                IdMedicament = medicament.IdMedicament,
+                Dose = med.Dose,
+                Details = med.Details,
+            };
+            medicaments.Add(medicamentdto);
+        }
+
+        var result = new PrescriptionDTO
+        {
+            IdPatient = prescription.IdPatient,
+            IdDoctor = prescription.IdDoctor,
+            Date = prescription.Date,
+            DueDate = prescription.DueDate,
+            Medicaments = medicaments,
+        };
+        return result;
+    }
+
+public async Task<Prescription> CreatePrescription(Prescription prescription,
         List<Prescription_Medicament> medicaments)
     {
         var patient = await _context.Patients.FindAsync(prescription.IdPatient);
