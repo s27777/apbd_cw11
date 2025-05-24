@@ -16,11 +16,5 @@ namespace Tutorial5.Controllers
             _dbService = dbService;
         }
         
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var books = await _dbService.GetBooks();
-            return Ok(books);
-        }
     }
 }

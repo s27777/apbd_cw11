@@ -58,7 +58,7 @@ public class DbService : IDbService
         return result;
     }
 
-public async Task<Prescription> CreatePrescription(Prescription prescription,
+    public async Task<Prescription> CreatePrescription(Prescription prescription,
         List<Prescription_Medicament> medicaments)
     {
         var patient = await _context.Patients.FindAsync(prescription.IdPatient);
@@ -86,22 +86,5 @@ public async Task<Prescription> CreatePrescription(Prescription prescription,
 
         await _context.SaveChangesAsync();
         return prescription;
-    }
-
-
-    //delete
-    public async Task<List<BookWithAuthorsDto>> GetBooks()
-    {
-        var books = await _context.Books.Select(e =>
-        new BookWithAuthorsDto {
-            Name = e.Name,
-            Price = e.Price,
-            Authors = e.BookAuthors.Select(a =>
-            new AuthorDto {
-                FirstName = a.Author.FirstName,
-                LastName = a.Author.LastName
-            }).ToList()
-        }).ToListAsync();
-        return books;
     }
 }

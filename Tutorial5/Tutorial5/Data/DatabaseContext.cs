@@ -46,27 +46,5 @@ public class DatabaseContext : DbContext
             new Patient() { IdPatient = 1, FirstName = "Ron", LastName = "Jakowski", Birthdate = new DateTime(1989, 6, 21)},
             new Patient() { IdPatient = 2, FirstName = "Andrzej", LastName = "Kowalski", Birthdate = new DateTime(2001, 1, 11)},
         });
-
-        //delete
-        modelBuilder.Entity<Author>().HasData(new List<Author>()
-        {
-            new Author() { AuthorId = 1, FirstName = "Jane", LastName = "Doe"},
-            new Author() { AuthorId = 2, FirstName = "John", LastName = "Doe"},
-        });
-        
-        
-        //delete
-        modelBuilder.Entity<Book>().HasData(new List<Book>()
-        {
-            new Book() { BookId = 1, Name = "Book 1", Price = 10.2 },
-            new Book() { BookId = 2, Name = "Book 2", Price = 123.2 },
-        });
-        
-        //delete
-        modelBuilder.Entity<BookAuthor>().HasData(new List<BookAuthor>()
-        {
-            new BookAuthor() { AuthorId = 1, BookId = 1, Notes = "n1" },
-            new BookAuthor() { AuthorId = 2, BookId = 1, Notes = "n2" },
-        });
     }
 }
